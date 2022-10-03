@@ -1,2 +1,0 @@
-# reactTest
-react sandbox
