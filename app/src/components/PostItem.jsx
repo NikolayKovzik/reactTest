@@ -1,17 +1,15 @@
 import React from 'react';
-// import MyButton from "./UI/button/MyButton";
+import MyButton from "./UI/button/MyButton";
 // import {useHistory} from 'react-router-dom';
 
-const PostItem = (props) => {
+const PostItem = ({ number, post, deletePost }) => {
     // const router = useHistory()
-
     return (
         <div className="post">
             <div className="post__content">
-                {<strong>{props.post.id}. {props.post.title}</strong>}
-                <strong>1. Javacrsccr</strong>
+                {<strong>{number}. {post.title}</strong>}
                 <div>
-                    {props.post.body}
+                    {post.body}
                 </div>
             </div>
             <div className="post__btns">
@@ -21,7 +19,7 @@ const PostItem = (props) => {
                 <MyButton onClick={() => props.remove(props.post)}>
                     Удалить
                 </MyButton> */}
-                <button>Удалить</button>
+                <MyButton onClick={() => deletePost(post.id)}>Удалить</MyButton>
             </div>
         </div>
     );

@@ -70,3 +70,10 @@
 .navbar__links {
   margin-left: auto;
 }
+
+.list-is-empty {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+}
