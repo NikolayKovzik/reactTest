@@ -28,7 +28,7 @@
 }
 
 .post-enter {
-  transform: translateX(-350px);
+  transform: translateX(-1550px);
 }
 .post-enter-active {
   transform: translateX(0px);
@@ -38,7 +38,7 @@
   opacity: 1;
 }
 .post-exit-active {
-  transform: translateX(-350px);
+  transform: translateX(-1550px);
   transition: all 500ms ease-in;
 }
 

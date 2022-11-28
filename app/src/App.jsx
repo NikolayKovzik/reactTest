@@ -1,35 +1,33 @@
-import { React, useMemo, useState } from 'react';
+import { useEffect } from 'react';
+import { React, useState } from 'react';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
+import MyButton from './components/UI/button/MyButton';
+import MyModal from './components/UI/MyModal/MyModal';
+import { usePosts } from './hooks/usePosts';
+import PostService from './API/PostService';
 import './styles/App.css'
+import Loader from './components/UI/Loader/Loader';
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'JavaScript', body: 'Best lang' },
-    { id: 2, title: 'TypeScript', body: 'best of all time lang' },
-    { id: 3, title: 'CoffeScript', body: 'crap idknw' },
-    { id: 4, title: 'assembler', body: 'better not use it' },
-    { id: 5, title: 'C++', body: 'hard lvl motherfucker' },
-    { id: 6, title: 'nodejs', body: 'use it everyday' },
-    { id: 7, title: 'C#', body: 'for gigachads' },
-    { id: 8, title: 'eliksir', body: 'cool lowlvl lang' },
-  ]
+  const [posts, setPosts] = useState([]
   );
 
-  const [filter, setFilter] = useState({selectedSort: '', searchQuery: ''});
+  const [filter, setFilter] = useState({ selectedSort: '', searchQuery: '' });
+  const [isModalWindowVisible, setIsModalWindowVisible] = useState(false);
+  const [isPostsLoading, setIsPostsLoading] = useState(true);
+  const searchedAndSortedPosts = usePosts(posts, filter.selectedSort, filter.searchQuery);
 
-  const sortedPosts = useMemo(() => {
-    console.log('getsrtdpsts')
-    if (filter.selectedSort) {
-      return [...posts].sort((a, b) => a[filter.selectedSort].localeCompare(b[filter.selectedSort]))
-    }
-    return posts;
-  }, [filter.selectedSort, posts]);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-  const searchedAndSortedPosts = useMemo(() => {
-    return sortedPosts.filter((post) => post.title.toLowerCase().includes(filter.searchQuery.toLowerCase()))
-  }, [filter.searchQuery, sortedPosts])
+  async function fetchPosts() {
+    const response = await PostService.getAll();
+    setPosts(response.data);
+    setIsPostsLoading(false);
+  }
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -41,10 +39,19 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm createPost={createPost} />
+      <MyButton onClick={() => { setIsModalWindowVisible(true) }}>
+        Создать Пользователя
+      </MyButton>
+      <MyModal visible={isModalWindowVisible} setVisible={setIsModalWindowVisible}>
+        <PostForm createPost={createPost} />
+      </MyModal>
       <hr style={{ marginTop: '20px' }} />
-      <PostFilter filter={filter} setFilter={setFilter}/>
-      <PostList posts={searchedAndSortedPosts} title={'посты про JS'} deletePost={deletePost} />
+      <PostFilter filter={filter} setFilter={setFilter} />
+      {
+        isPostsLoading
+          ? <Loader/>
+          : <PostList posts={searchedAndSortedPosts} title={'посты про JS'} deletePost={deletePost} />
+      }
     </div>
   );
 }
