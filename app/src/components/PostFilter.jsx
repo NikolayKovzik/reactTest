@@ -8,12 +8,12 @@ const PostFilter = ({ filter, setFilter }) => {
     <>
       <MyInput
         value={filter.searchQuery}
-        onChange={(event) => setFilter({ ...filter, searchQuery: event.target.value})}
+        onChange={(event) => setFilter({ ...filter, searchQuery: event.target.value })}
         type="text"
         placeholder="search" />
       <MySelect
         value={filter.selectedSort}
-        onChange={(selectedSort) => setFilter({ ...filter, selectedSort})}
+        onChange={(event) => setFilter({ ...filter, selectedSort: event.target.value })}
         defaulValue='cортировка'
         options={[
           { value: 'title', name: 'по названию' },

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const MySelect = ({ options, defaulValue, value, onChange }) => {
+const MySelect = ({ options, defaulValue, value, onChange}) => {
   return (
     <div>
       <select
         value={value}
-        onChange={(event) => { onChange(event.target.value) }}
+        onChange={onChange}
       >
         <option value='' disabled={true}>{defaulValue}</option>
         {options.map((option) =>

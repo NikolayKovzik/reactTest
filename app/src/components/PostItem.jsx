@@ -1,13 +1,15 @@
 import React from 'react';
 import MyButton from "./UI/button/MyButton";
-// import {useHistory} from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 const PostItem = ({ number, post, deletePost }) => {
-    // const router = useHistory()
+
+    const navigate = useNavigate ();
+    console.log(navigate)
     return (
         <div className="post">
             <div className="post__content">
-                {<strong>{number}. {post.title}</strong>}
+                {<strong>{post.id}. {post.title}</strong>}
                 <div>
                     {post.body}
                 </div>
@@ -20,6 +22,7 @@ const PostItem = ({ number, post, deletePost }) => {
                     Удалить
                 </MyButton> */}
                 <MyButton onClick={() => deletePost(post.id)}>Удалить</MyButton>
+                <MyButton onClick={() => {navigate(`${post.id}`)}}>Открыть</MyButton>
             </div>
         </div>
     );
