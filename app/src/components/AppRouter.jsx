@@ -1,9 +1,7 @@
 import React from 'react'
 import { useContext } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AuthContext } from '../context';
-
-import Error from '../pages/Error';
 
 import { privateRoutes, publicRoutes } from '../router'
 import Loader from './UI/Loader/Loader';

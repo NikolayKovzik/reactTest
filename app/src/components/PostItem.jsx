@@ -5,7 +5,6 @@ import {useNavigate } from 'react-router-dom';
 const PostItem = ({ number, post, deletePost }) => {
 
     const navigate = useNavigate ();
-    console.log(navigate)
     return (
         <div className="post">
             <div className="post__content">
